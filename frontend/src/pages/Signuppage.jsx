@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios'
 
 const Signuppage = () => {
     const navigate = useNavigate();
@@ -11,8 +12,25 @@ const Signuppage = () => {
     const [userPassword, setPassword] = useState("");
     const [userContact, setContact] = useState("");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
+
+        try {
+            const response = await axios.post("https://learning-1-gf05.onrender.com/user/add",{
+                username: userName,
+                email : userEmail,
+                password : userPassword,
+                contact : userContact,
+            },{
+                headers:{
+                    "Content-Type" : "application/json"
+                }
+            });
+            console.log("signup completed", response.data);
+        } catch (error) {
+            console.log("Error found", error);
+        }
+
         setName("");
         setEmail("");
         setPassword("");

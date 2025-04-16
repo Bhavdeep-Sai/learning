@@ -10,9 +10,9 @@ mongoose.connect(process.env.MongoDB_URL)
 .catch((err)=>{console.log("MongoDB connection Failed", err)})
 
 const cors = require('cors');
-app.use(cors({
-    origin: "http://localhost:5173"
-}));
+app.use(cors());
+
+
 const userRouter = require('./routes/userRouter');
 app.use(express.json());
 app.use('/user', userRouter);
